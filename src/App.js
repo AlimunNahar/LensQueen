@@ -1,7 +1,7 @@
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import routes from "./components/Router/Routes";
+import { routes } from "./components/Router/Routes";
 
 function App() {
   return (
