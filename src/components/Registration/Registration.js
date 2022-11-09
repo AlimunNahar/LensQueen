@@ -47,8 +47,10 @@ const Registration = () => {
         const user = result.user;
         console.log(user);
         setError("");
+        if (user) {
+          toast.success("Successfully Created Your Account!");
+        }
         form.reset();
-        toast.success("Successfully Created Your Account!");
       })
       .catch((error) => {
         console.error(error);
