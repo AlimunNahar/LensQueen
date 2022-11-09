@@ -1,18 +1,75 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { GoogleAuthProvider } from "firebase/auth";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider";
 import useTitle from "../Hooks/useTitle";
 
 const Registration = () => {
   useTitle("Registration");
+
+  const { createUser, providerLogin } = useContext(AuthContext);
+
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
+  const googleProvider = new GoogleAuthProvider();
+
+  const handleGoogleSignIn = (event) => {
+    event.preventDefault();
+    providerLogin(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        // console.log(user);
+        if (user) {
+          navigate(from, { replace: true });
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const photoURL = form.photoURL.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    // console.log(name, photoURL, email, password);
+
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        setError("");
+        form.reset();
+        toast.success("Successfully Created Your Account!");
+      })
+      .catch((error) => {
+        console.error(error);
+        setError(error.message);
+      });
+  };
   return (
     <div className="bg-[url('https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700640836.jpg')]">
       <div className="w-11/12 lg:w-5/12 mx-auto py-16">
         <h2 className="mb-10 text-5xl text-teal-500 font-semibold text-center">
           Register a new account
         </h2>
+        <p className="mb-5 text-lg text-slate-400 font-bold italic">
+          Memorable events don’t just happen. They happen to be our business.
+        </p>
 
         <div className="w-full p-4 rounded-md shadow sm:p-8 dark:dark:bg-gray-900 dark:dark:text-gray-100">
-          <form className="space-y-8 ng-untouched ng-pristine ng-valid">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-8 ng-untouched ng-pristine ng-valid"
+          >
             <div className="space-y-4">
               <div className="space-y-2">
                 <label htmlFor="name" className="block text-lg">
@@ -31,8 +88,8 @@ const Registration = () => {
                   Image url *
                 </label>
                 <input
-                  type="img"
-                  name="img"
+                  type="photoURL"
+                  name="photoURL"
                   required
                   placeholder="http://dummyimage.com/122x100.png"
                   className="w-full px-3 py-2 border rounded-md dark:dark:border-gray-700 dark:dark:bg-gray-900 dark:dark:text-gray-100 focus:dark:dark:border-violet-400"
@@ -56,8 +113,7 @@ const Registration = () => {
                     Password *
                   </label>
                   <Link
-                    rel="noopener noreferrer"
-                    href="/"
+                    to="/"
                     className="text-xs hover:underline dark:dark:text-gray-400"
                   >
                     Forgot password?
@@ -78,6 +134,7 @@ const Registration = () => {
             >
               Create Account
             </button>
+            <div className="text-red-700">{error}</div>
           </form>
 
           <div className="flex items-center w-full my-4">
@@ -88,8 +145,7 @@ const Registration = () => {
 
           <div className="my-6 space-y-4">
             <button
-              aria-label="Login with Google"
-              type="button"
+              onClick={handleGoogleSignIn}
               className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:dark:border-gray-400 hover:ring-violet-400 hover:bg-violet-500"
             >
               <svg

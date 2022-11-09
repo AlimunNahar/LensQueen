@@ -3,6 +3,7 @@ import { useRouteError } from "react-router-dom";
 
 const Error = () => {
   const error = useRouteError();
+  console.error(error);
   return (
     <div className="mx-auto my-20">
       <h1>Oops!</h1>

@@ -1,90 +1,259 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider";
+import Banner from "../assets/banner1.png";
+import "./Header.css";
+import { FaHome } from "react-icons/fa";
 
 const Header = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.error(error));
+  };
+
   return (
-    <div>
-      <header className="p-4 dark:dark:bg-gray-800 dark:dark:text-gray-100">
-        <div className="container flex justify-between h-16 mx-auto">
-          <div className="flex">
-            <Link
-              to="/"
-              aria-label="Back to homepage"
-              className="flex items-center p-2"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 32 32"
-                className="w-8 h-8 dark:dark:text-violet-400"
-              >
-                <path d="M27.912 7.289l-10.324-5.961c-0.455-0.268-1.002-0.425-1.588-0.425s-1.133 0.158-1.604 0.433l0.015-0.008-10.324 5.961c-0.955 0.561-1.586 1.582-1.588 2.75v11.922c0.002 1.168 0.635 2.189 1.574 2.742l0.016 0.008 10.322 5.961c0.455 0.267 1.004 0.425 1.59 0.425 0.584 0 1.131-0.158 1.602-0.433l-0.014 0.008 10.322-5.961c0.955-0.561 1.586-1.582 1.588-2.75v-11.922c-0.002-1.168-0.633-2.189-1.573-2.742zM27.383 21.961c0 0.389-0.211 0.73-0.526 0.914l-0.004 0.002-10.324 5.961c-0.152 0.088-0.334 0.142-0.53 0.142s-0.377-0.053-0.535-0.145l0.005 0.002-10.324-5.961c-0.319-0.186-0.529-0.527-0.529-0.916v-11.922c0-0.389 0.211-0.73 0.526-0.914l0.004-0.002 10.324-5.961c0.152-0.090 0.334-0.143 0.53-0.143s0.377 0.053 0.535 0.144l-0.006-0.002 10.324 5.961c0.319 0.185 0.529 0.527 0.529 0.916z"></path>
-                <path d="M22.094 19.451h-0.758c-0.188 0-0.363 0.049-0.515 0.135l0.006-0.004-4.574 2.512-5.282-3.049v-6.082l5.282-3.051 4.576 2.504c0.146 0.082 0.323 0.131 0.508 0.131h0.758c0.293 0 0.529-0.239 0.529-0.531v-0.716c0-0.2-0.11-0.373-0.271-0.463l-0.004-0.002-5.078-2.777c-0.293-0.164-0.645-0.26-1.015-0.26-0.39 0-0.756 0.106-1.070 0.289l0.010-0.006-5.281 3.049c-0.636 0.375-1.056 1.055-1.059 1.834v6.082c0 0.779 0.422 1.461 1.049 1.828l0.009 0.006 5.281 3.049c0.305 0.178 0.67 0.284 1.061 0.284 0.373 0 0.723-0.098 1.027-0.265l-0.012 0.006 5.080-2.787c0.166-0.091 0.276-0.265 0.276-0.465v-0.716c0-0.293-0.238-0.529-0.529-0.529z"></path>
-              </svg>
-            </Link>
-            <ul className="items-stretch hidden space-x-3 lg:flex">
-              <li className="flex">
+    <div className="px-2 sm:px-4 py-2.5 lg:px-10 dark:bg-gray-900 bg-gray-800">
+      <div className="container flex flex-wrap justify-between items-center mx-auto">
+        <Link to="/" className="flex items-center">
+          <img src={Banner} className="mr-3 h-6 sm:h-9" alt="Logo" />
+        </Link>
+        <div className="flex items-center md:order-2">
+          <button
+            type="button"
+            className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            id="user-menu-button"
+            aria-expanded="false"
+            data-dropdown-toggle="user-dropdown"
+            data-dropdown-placement="bottom"
+          >
+            <span className="sr-only">Open user menu</span>
+            <img
+              className="w-8 h-8 rounded-full"
+              src={user?.photoURL}
+              alt="userPhoto"
+            />
+          </button>
+
+          {/*  Dropdown menu */}
+          <div
+            className="styleApply hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+            id="user-dropdown"
+            data-popper-reference-hidden=""
+            data-popper-escaped=""
+            data-popper-placement="bottom"
+          >
+            <ul className="py-1" aria-labelledby="user-menu-button">
+              <li>
                 <Link
-                  rel="noopener noreferrer"
                   to="/"
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent"
+                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                 >
-                  Link
-                </Link>
-              </li>
-              <li className="flex">
-                <Link
-                  rel="noopener noreferrer"
-                  to="/"
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent dark:dark:text-violet-400 dark:dark:border-violet-400"
-                >
-                  Link
-                </Link>
-              </li>
-              <li className="flex">
-                <Link
-                  rel="noopener noreferrer"
-                  to="/"
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent"
-                >
-                  Link
-                </Link>
-              </li>
-              <li className="flex">
-                <Link
-                  rel="noopener noreferrer"
-                  to="/"
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent"
-                >
-                  Link
+                  Sign out
                 </Link>
               </li>
             </ul>
           </div>
-          <div className="items-center flex-shrink-0 hidden lg:flex">
-            <button className="px-8 py-3 font-semibold rounded dark:dark:bg-violet-400 dark:dark:text-gray-900">
-              Log in
-            </button>
-          </div>
-          <button className="p-4 lg:hidden">
+          <button
+            data-collapse-toggle="mobile-menu-2"
+            type="button"
+            className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="mobile-menu-2"
+            aria-expanded="false"
+          >
+            <span className="sr-only">Open main menu</span>
             <svg
+              className="w-6 h-6"
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="w-6 h-6 dark:dark:text-gray-100"
             >
               <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
+                fillRule="evenodd"
+                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clipRule="evenodd"
               ></path>
             </svg>
           </button>
         </div>
-      </header>
+        <div
+          className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
+          id="mobile-menu-2"
+        >
+          <ul className="flex flex-col p-4 mt-4 dark:bg-gray-900 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0  md:dark:bg-gray-900 dark:border-gray-700">
+            <li>
+              <Link
+                to="/"
+                className="block py-2 pr-4 pl-3 text-white md:p-0 dark:text-white dark:bg-gray-900 hover:underline underline-offset-8 hover:text-purple-800 font-3xl"
+                aria-current="page"
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/"
+                className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/"
+                className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                Services
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/"
+                className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                Pricing
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/"
+                className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                Contact
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+
+    // <div className="overflow-x-hidden">
+    //   <header className=" dark:dark:bg-gray-800 dark:dark:text-gray-100">
+    //     <div className="lg:px-20 px-4 flex justify-between py-5 mx-auto">
+    //       <div className="flex">
+    //         <Link to="/" className="flex items-center">
+    //           <img
+    //             className="w-10/12 lg:w-52 lg:mr-12 shadow-lg shadow-purple-400/5 rounded-3xl"
+    //             src={Banner}
+    //             alt=""
+    //           />
+    //         </Link>
+    //         <ul className="text-xl hidden space-x-3 lg:flex">
+    //           <li className="flex">
+    //             <Link
+    //               to="/"
+    //               className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent  hover:dark:text-violet-400 active:dark:border-violet-400 hover:dark:border-violet-400"
+    //             >
+    //               <FaHome className="text-4xl" />
+    //             </Link>
+    //           </li>
+    //           <li className="flex">
+    //             <Link
+    //               to="/services"
+    //               className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent hover:dark:text-violet-400 active:dark:border-violet-400 hover:dark:border-violet-400"
+    //             >
+    //               Services
+    //             </Link>
+    //           </li>
+    //           <li className="flex">
+    //             <Link
+    //               to="/services"
+    //               className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent  hover:dark:text-violet-400 active:dark:border-violet-400 hover:dark:border-violet-400"
+    //             >
+    //               Documentary
+    //             </Link>
+    //           </li>
+    //           <li className="flex">
+    //             <Link
+    //               to="/"
+    //               className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent  hover:dark:text-violet-400 active:dark:border-violet-400 hover:dark:border-violet-400"
+    //             >
+    //               Blogs
+    //             </Link>
+    //           </li>
+    //           <li className="flex">
+    //             <Link
+    //               to="/"
+    //               className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent  hover:dark:text-violet-400 active:dark:border-violet-400 hover:dark:border-violet-400"
+    //             >
+    //               Contact
+    //             </Link>
+    //           </li>
+    //         </ul>
+    //       </div>
+    //       <div className="items-center ">
+    //         {user?.email ? (
+    //           <div className="flex flex-row pt-3">
+    //             <img
+    //               src={user.photoURL}
+    //               className="mr-5 w-8 h-8 md:w-8 md:h-8 lg:w-12 lg:h-12 rounded-full ring-2 ring-offset-4 dark:bg-gray-500 ring-violet-400 ring-offset-gray-800"
+    //               alt=""
+    //             />
+    //             <button
+    //               onClick={handleLogOut}
+    //               className="hover:bg-slate-600 px-8 mr-10 font-semibold rounded dark:dark:bg-violet-400 dark:dark:text-gray-900"
+    //             >
+    //               Sign Out
+    //             </button>
+    //           </div>
+    //         ) : (
+    //           <Link to="/login">
+    //             <button className="hover:bg-slate-600 px-8 py-3 font-semibold rounded dark:dark:bg-violet-400 dark:dark:text-gray-900">
+    //               Sign In
+    //             </button>
+    //           </Link>
+    //         )}
+    //       </div>
+    //     </div>
+    //   </header>
+    //   <div>
+    //     <ul className="text-xl lg:hidden flex flex-wrap justify-between py-5 mx-auto">
+    //       <li className="flex">
+    //         <Link
+    //           to="/"
+    //           className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent  hover:dark:text-violet-400 active:dark:border-violet-400 hover:dark:border-violet-400"
+    //         >
+    //           <FaHome className="text-4xl" />
+    //         </Link>
+    //       </li>
+    //       <li className="flex">
+    //         <Link
+    //           to="/services"
+    //           className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent hover:dark:text-violet-400 active:dark:border-violet-400 hover:dark:border-violet-400"
+    //         >
+    //           Services
+    //         </Link>
+    //       </li>
+    //       <li className="flex">
+    //         <Link
+    //           to="/services"
+    //           className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent  hover:dark:text-violet-400 active:dark:border-violet-400 hover:dark:border-violet-400"
+    //         >
+    //           Documentary
+    //         </Link>
+    //       </li>
+    //       <li className="flex">
+    //         <Link
+    //           to="/"
+    //           className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent  hover:dark:text-violet-400 active:dark:border-violet-400 hover:dark:border-violet-400"
+    //         >
+    //           Blogs
+    //         </Link>
+    //       </li>
+    //       <li className="flex">
+    //         <Link
+    //           to="/"
+    //           className="flex items-center px-4 -mb-1 border-b-2 dark:dark:border-transparent  hover:dark:text-violet-400 active:dark:border-violet-400 hover:dark:border-violet-400"
+    //         >
+    //           Contact
+    //         </Link>
+    //       </li>
+    //     </ul>
+    //   </div>
+    // </div>
   );
 };
 

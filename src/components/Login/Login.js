@@ -1,18 +1,75 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { GoogleAuthProvider } from "firebase/auth";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider";
 import useTitle from "../Hooks/useTitle";
 
 const Login = () => {
   useTitle("Login");
+
+  const [error, setError] = useState("");
+  const { signIn, setLoading, providerLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
+  const googleProvider = new GoogleAuthProvider();
+
+  const handleGoogleSignIn = (event) => {
+    event.preventDefault();
+    providerLogin(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        if (user) {
+          navigate(from, { replace: true });
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        form.reset();
+        setError("");
+        if (user) {
+          toast.success("Successfully Logged In! ☺️");
+          navigate(from, { replace: true });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <div className="bg-[url('https://wallpaperaccess.com/full/4054936.jpg')]">
       <div className="w-11/12 lg:w-5/12 mx-auto py-24">
         <h2 className="mb-10 text-5xl font-semibold text-center font-mono text-purple-500">
           Login to your account
         </h2>
+        <p className="mb-5 text-lg text-slate-600 font-bold italic">
+          Memorable events don’t just happen. They happen to be our business.
+        </p>
 
         <div className="w-full p-4 rounded-md shadow sm:p-8 dark:dark:bg-gray-900 dark:dark:text-gray-100">
-          <form className="space-y-8 ng-untouched ng-pristine ng-valid">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-8 ng-untouched ng-pristine ng-valid"
+          >
             <div className="space-y-4">
               <div className="space-y-2">
                 <label htmlFor="email" className="block text-lg">
@@ -48,6 +105,7 @@ const Login = () => {
                 />
               </div>
             </div>
+            <div className="text-red-700">{error}</div>
             <button
               type="button"
               className="text-lg w-full px-8 py-3 font-semibold rounded-md dark:dark:bg-violet-400 dark:dark:text-gray-900"
@@ -64,8 +122,7 @@ const Login = () => {
 
           <div className="my-6 space-y-4">
             <button
-              aria-label="Login with Google"
-              type="button"
+              onClick={handleGoogleSignIn}
               className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:dark:border-gray-400 hover:ring-violet-400 hover:bg-violet-500"
             >
               <svg
