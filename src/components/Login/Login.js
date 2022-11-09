@@ -106,10 +106,7 @@ const Login = () => {
               </div>
             </div>
             <div className="text-red-700">{error}</div>
-            <button
-              type="button"
-              className="text-lg w-full px-8 py-3 font-semibold rounded-md dark:dark:bg-violet-400 dark:dark:text-gray-900 hover:btn hover:btn-ghost"
-            >
+            <button className="text-lg w-full px-8 py-3 font-semibold rounded-md dark:dark:bg-violet-400 dark:dark:text-gray-900 hover:btn hover:btn-ghost">
               Sign In
             </button>
           </form>

@@ -4,7 +4,13 @@ import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 import useTitle from "../Hooks/useTitle";
-import { AiFillMail } from "react-icons/ai";
+import {
+  AiFillMail,
+  AiOutlineLink,
+  AiOutlineRollback,
+  AiOutlineUser,
+} from "react-icons/ai";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 const Registration = () => {
   useTitle("Registration");
@@ -55,6 +61,7 @@ const Registration = () => {
         handleUpdateUserProfile(name, photoURL);
         if (user) {
           toast.success("Successfully Created Your Account!");
+          navigate(from, { replace: true });
         }
         form.reset();
       })
@@ -84,66 +91,94 @@ const Registration = () => {
           Memorable events don’t just happen. They happen to be our business.
         </p>
 
-        <form onSubmit={handleSubmit}>
-          <div className="card  w-full shadow-2xl bg-base-100">
-            <div className="card-body">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Full Name *</span>
-                </label>
-                <input
-                  type="name"
-                  name="name"
-                  placeholder="your name"
-                  className="input input-bordered"
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">PhotoURL *</span>
-                </label>
-                <input
-                  type="text"
-                  name="photoURL"
-                  placeholder="photoURL"
-                  className="input input-bordered"
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email *</span>
-                </label>
+        <form
+          onSubmit={handleSubmit}
+          className="w-full p-4 rounded-md shadow sm:p-8 dark:dark:bg-gray-900 dark:dark:text-gray-100"
+        >
+          <div className="space-y-8 ng-untouched ng-pristine ng-valid">
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="block text-lg">Full name *</label>
+
                 <label className="input-group">
-                  <span>
-                    <AiFillMail />
+                  <input
+                    type="name"
+                    name="name"
+                    required
+                    placeholder="your name"
+                    className="w-full px-3 py-2 border rounded-md dark:dark:border-gray-700 dark:dark:bg-gray-900 dark:dark:text-gray-100 focus:dark:dark:border-violet-400"
+                  />
+                  <span className="border border-gray-700">
+                    <AiOutlineUser />
                   </span>
+                </label>
+              </div>
+              <div className="space-y-2">
+                <label className="block text-lg">Image url *</label>
+                <label className="input-group">
+                  <input
+                    type="photoURL"
+                    name="photoURL"
+                    required
+                    placeholder="http://dummyimage.com/122x100.png"
+                    className="w-full px-3 py-2 border rounded-md dark:dark:border-gray-700 dark:dark:bg-gray-900 dark:dark:text-gray-100 focus:dark:dark:border-violet-400"
+                  />
+                  <span className="border border-gray-700">
+                    <AiOutlineLink />
+                  </span>
+                </label>
+              </div>
+              <div className="space-y-2">
+                <label className="block text-lg">Email address *</label>
+                <label className="input-group">
                   <input
                     type="email"
                     name="email"
-                    placeholder="info@site.com"
-                    className="input input-bordered w-full"
+                    required
+                    placeholder="leroy@jenkins.com"
+                    className="w-full px-3 py-2 border rounded-md dark:dark:border-gray-700 dark:dark:bg-gray-900 dark:dark:text-gray-100 focus:dark:dark:border-violet-400"
                   />
+                  <span className="border border-gray-700">
+                    <AiFillMail />
+                  </span>
                 </label>
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password *</span>
-                </label>
-                <input
-                  type="password"
-                  placeholder="password"
-                  className="input input-bordered"
-                />
-                <label className="label">
-                  <a href="/" className="label-text-alt link link-hover">
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <label className="text-lg">Password *</label>
+                  <Link
+                    to="/"
+                    className="text-xs hover:underline dark:dark:text-gray-400"
+                  >
                     Forgot password?
-                  </a>
+                  </Link>
+                </div>
+                <label className="input-group">
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="******"
+                    required
+                    className="w-full px-3 py-2 border rounded-md dark:dark:border-gray-700 dark:dark:bg-gray-900 dark:dark:text-gray-100 focus:dark:dark:border-violet-400"
+                  />
+                  <span className="border border-gray-700">
+                    <RiLockPasswordFill />
+                  </span>
                 </label>
-              </div>
-              <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <div className="text-red-700 py-3">{error}</div>
               </div>
             </div>
+            <button className="w-full text-lg px-8 py-3 font-semibold rounded-md dark:dark:bg-violet-400 dark:dark:text-gray-900 hover:btn hover:btn-ghost">
+              Create Account
+            </button>
+            <Link to="/">
+              <button className="w-full text-lg btn btn-ghost hover:btn hover:btn-ghost mt-5">
+                <span>
+                  <AiOutlineRollback />
+                </span>{" "}
+                &nbsp; Back to Home
+              </button>
+            </Link>
           </div>
         </form>
 

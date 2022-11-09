@@ -46,9 +46,6 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log(currentUser);
       setUser(currentUser);
-      if (currentUser) {
-        toast.success("Successfully Logged in!");
-      }
       setLoading(false);
     });
 
