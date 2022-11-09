@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import toast from "react-hot-toast";
 
@@ -25,6 +26,10 @@ const AuthProvider = ({ children }) => {
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const updateUserProfile = (profile) => {
+    return updateProfile(auth.currentUser, profile);
   };
 
   const signIn = (email, password) => {
@@ -57,6 +62,7 @@ const AuthProvider = ({ children }) => {
     providerLogin,
     logOut,
     createUser,
+    updateUserProfile,
     signIn,
     loading,
     setLoading,

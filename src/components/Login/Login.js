@@ -38,7 +38,7 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        // console.log(user);
         form.reset();
         setError("");
         if (user) {
@@ -58,7 +58,7 @@ const Login = () => {
   return (
     <div className="bg-[url('https://wallpaperaccess.com/full/4054936.jpg')]">
       <div className="w-11/12 lg:w-5/12 mx-auto py-24">
-        <h2 className="mb-10 text-5xl font-semibold text-center font-mono text-purple-500">
+        <h2 className="mb-10 text-5xl font-semibold text-center font-mono text-purple-500 animate-pulse">
           Login to your account
         </h2>
         <p className="mb-5 text-lg text-slate-600 font-bold italic">
@@ -108,7 +108,7 @@ const Login = () => {
             <div className="text-red-700">{error}</div>
             <button
               type="button"
-              className="text-lg w-full px-8 py-3 font-semibold rounded-md dark:dark:bg-violet-400 dark:dark:text-gray-900"
+              className="text-lg w-full px-8 py-3 font-semibold rounded-md dark:dark:bg-violet-400 dark:dark:text-gray-900 hover:btn hover:btn-ghost"
             >
               Sign In
             </button>
