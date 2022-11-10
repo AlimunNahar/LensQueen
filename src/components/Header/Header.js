@@ -37,51 +37,103 @@ const Header = () => {
               />
             </svg>
           </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/services">Services</Link>
-            </li>
-            <li>
-              <Link to="/gallery">Documentary</Link>
-            </li>
-            <li>
-              <Link to="/blog">Blog</Link>
-            </li>
-            <li>
-              <a href="/">Contact</a>
-            </li>
-          </ul>
+          {user?.uid ? (
+            <ul
+              tabIndex={0}
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/services">Services</Link>
+              </li>
+              <li>
+                <Link to="/gallery">Documentary</Link>
+              </li>
+              <li>
+                <a href="/my-reviews">My Reviews</a>
+              </li>
+              <li>
+                <a href="/add-service">Add Service</a>
+              </li>
+              <li>
+                <Link to="/blog">Blog</Link>
+              </li>
+            </ul>
+          ) : (
+            <ul
+              tabIndex={0}
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/services">Services</Link>
+              </li>
+              <li>
+                <Link to="/gallery">Documentary</Link>
+              </li>
+              <li>
+                <Link to="/blog">Blog</Link>
+              </li>
+              <li>
+                <Link to="/">Contact</Link>
+              </li>
+            </ul>
+          )}
         </div>
         <Link to="/" className="md:w-5/12 lg:w-6/12">
           <img src={Banner} alt="logo" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal p-0 text-lg ">
-          <li className="text-2xl hover:text-black font-semibold">
-            <Link to="/">
-              <FaHome />
-            </Link>
-          </li>
-          <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
-            <Link to="/services">Services</Link>
-          </li>
-          <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
-            <Link to="/gallery">Documentary</Link>
-          </li>
-          <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
-            <Link to="/blog">Blog</Link>
-          </li>
-          <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
-            <a href="/">Contact</a>
-          </li>
-        </ul>
+        {user?.uid ? (
+          <ul className="menu menu-horizontal p-0 text-lg ">
+            <li className="text-2xl hover:text-black font-semibold">
+              <Link to="/">
+                <FaHome />
+              </Link>
+            </li>
+            <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
+              <Link to="/services">Services</Link>
+            </li>
+            <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
+              <Link to="/gallery">Documentary</Link>
+            </li>
+
+            <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
+              <a href="/my-reviews">My Reviews</a>
+            </li>
+            <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
+              <a href="/add-service">Add Service</a>
+            </li>
+            <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
+              <Link to="/blog">Blog</Link>
+            </li>
+          </ul>
+        ) : (
+          <ul className="menu menu-horizontal p-0 text-lg ">
+            <li className="text-2xl hover:text-black font-semibold">
+              <Link to="/">
+                <FaHome />
+              </Link>
+            </li>
+            <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
+              <Link to="/services">Services</Link>
+            </li>
+            <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
+              <Link to="/gallery">Documentary</Link>
+            </li>
+            <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
+              <Link to="/blog">Blog</Link>
+            </li>
+            <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
+              <Link to="/">Contact</Link>
+            </li>
+          </ul>
+        )}
       </div>
       <div className="navbar-end">
         {user?.email ? (

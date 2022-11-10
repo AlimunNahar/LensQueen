@@ -5,7 +5,7 @@ import { AuthContext } from "../Context/AuthProvider";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import useTitle from "../Hooks/useTitle";
-import AddReviews from "../Reviews/AddReviews";
+import MyReviews from "../Reviews/MyReviews";
 
 const ServiceDetails = () => {
   useTitle("Details");
@@ -38,7 +38,7 @@ const ServiceDetails = () => {
       <hr className="mx-5" />
       <div className="bg-black pb-8">
         <h2 className="py-8 text-3xl font-bold text-center">Reviews</h2>
-        {details.reviews.map((review) => (
+        {details?.reviews.map((review) => (
           <div>
             <div className="container flex flex-col w-10/12 mb-2 p-6 mx-auto divide-y rounded-md divide-gray-700 dark:dark:bg-gray-900 dark:dark:text-gray-100">
               <div className="flex justify-between p-4">
@@ -70,7 +70,7 @@ const ServiceDetails = () => {
       <div className="bg-violet-500/50 mx-auto">
         {user?.email ? (
           <div className="text-center">
-            <AddReviews />
+            <MyReviews />
           </div>
         ) : (
           <div className="text-center">

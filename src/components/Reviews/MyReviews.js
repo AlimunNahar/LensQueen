@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AddReviews = () => {
+const MyReviews = () => {
   return (
-    <div className="mx-auto">
-      <div className="flex flex-col max-w-xl p-8 shadow-sm rounded-xl lg:p-12 dark:dark:bg-gray-900 dark:dark:text-gray-100">
-        <div className="flex flex-col items-center w-full">
+    <div className="mx-40 py-10">
+      <div className="flex flex-col p-8 shadow-sm rounded-xl lg:p-12 dark:dark:bg-gray-900 dark:dark:text-gray-100 hover:drop-shadow-2xl">
+        <form className="flex flex-col items-center w-full">
           <h2 className="text-3xl font-semibold text-center">
             Your opinion matters!
           </h2>
@@ -54,11 +54,7 @@ const AddReviews = () => {
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                 </svg>
               </button>
-              <button
-                type="button"
-                title="Rate 4 stars"
-                aria-label="Rate 4 stars"
-              >
+              <button title="Rate 4 stars" aria-label="Rate 4 stars">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -68,11 +64,7 @@ const AddReviews = () => {
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                 </svg>
               </button>
-              <button
-                type="button"
-                title="Rate 5 stars"
-                aria-label="Rate 5 stars"
-              >
+              <button title="Rate 5 stars" aria-label="Rate 5 stars">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -87,17 +79,14 @@ const AddReviews = () => {
           <div className="flex flex-col w-full">
             <textarea
               rows="3"
-              placeholder="Message..."
-              className="p-4 rounded-md resize-none dark:dark:text-gray-100 dark:dark:bg-gray-900"
+              placeholder="Write your comment here..."
+              className="p-4 rounded-md resize-none dark:dark:text-gray-100 border dark:dark:bg-gray-900"
             ></textarea>
-            <button
-              type="button"
-              className="py-4 my-8 font-semibold rounded-md dark:dark:text-gray-900 dark:dark:bg-violet-400"
-            >
+            <button className="py-4 my-8 font-semibold rounded-md dark:dark:text-gray-900 hover:btn-ghost dark:dark:bg-violet-400">
               Leave feedback
             </button>
           </div>
-        </div>
+        </form>
         <div className="flex items-center justify-center">
           <Link to="/" className="text-sm dark:dark:text-gray-400">
             Maybe later
@@ -108,4 +97,4 @@ const AddReviews = () => {
   );
 };
 
-export default AddReviews;
+export default MyReviews;
