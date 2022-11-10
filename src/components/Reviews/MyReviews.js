@@ -1,11 +1,71 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider";
 
-const MyReviews = () => {
+const MyReviews = ({ details }) => {
+  const { user } = useContext(AuthContext);
+  const { _id, title, img, service_id } = details;
+  const { email, userName, uid } = user;
+  // console.log(user);
+  // console.log(details);
+
+  const handleComment = (event) => {
+    event.preventDefault();
+    // console.log("clicked");
+    const message = event.target.message.value;
+    // console.log(message);
+
+    const timestamp = Date.now();
+
+    const time = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    }).format(timestamp);
+
+    const reviews = {
+      service: _id,
+      serviceName: title,
+      img,
+      userName,
+      email,
+      message,
+      time,
+    };
+
+    // if (phone.length > 10) {
+    //   alert("Phone number should be 10 characters or longer!");
+    // } else {
+    // }
+
+    fetch("https://assignment-11-server-six.vercel.app/reviews", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(reviews),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          alert("Review added successfully");
+          event.target.reset();
+        }
+      })
+      .catch((e) => console.error(e));
+  };
+
   return (
-    <div className="mx-40 py-10">
+    <div className="mx-5 lg:mx-40 py-10">
       <div className="flex flex-col p-8 shadow-sm rounded-xl lg:p-12 dark:dark:bg-gray-900 dark:dark:text-gray-100 hover:drop-shadow-2xl">
-        <form className="flex flex-col items-center w-full">
+        <form
+          onSubmit={handleComment}
+          className="flex flex-col items-center w-full"
+        >
           <h2 className="text-3xl font-semibold text-center">
             Your opinion matters!
           </h2>
@@ -77,11 +137,13 @@ const MyReviews = () => {
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <textarea
+            <input
+              type="text"
+              name="message"
               rows="3"
               placeholder="Write your comment here..."
               className="p-4 rounded-md resize-none dark:dark:text-gray-100 border dark:dark:bg-gray-900"
-            ></textarea>
+            ></input>
             <button className="py-4 my-8 font-semibold rounded-md dark:dark:text-gray-900 hover:btn-ghost dark:dark:bg-violet-400">
               Leave feedback
             </button>

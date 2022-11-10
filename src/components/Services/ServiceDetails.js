@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineLike } from "react-icons/ai";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
@@ -9,9 +9,19 @@ import MyReviews from "../Reviews/MyReviews";
 
 const ServiceDetails = () => {
   useTitle("Details");
+  const [myReviews, setMyReviews] = useState([]);
   const { user } = useContext(AuthContext);
   const details = useLoaderData();
-  console.log(details);
+  // console.log(details);
+
+  useEffect(() => {
+    fetch("https://assignment-11-server-six.vercel.app/")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }, []);
+
   return (
     <div>
       <Header />
@@ -70,7 +80,7 @@ const ServiceDetails = () => {
       <div className="bg-violet-500/50 mx-auto">
         {user?.email ? (
           <div className="text-center">
-            <MyReviews />
+            <MyReviews details={details} />
           </div>
         ) : (
           <div className="text-center">
