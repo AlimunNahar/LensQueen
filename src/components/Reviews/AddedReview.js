@@ -43,7 +43,7 @@ const AddedReview = () => {
   };
 
   const handleStatusUpdate = (id) => {
-    fetch(`https://assignment-11-server-six.vercel.app/reviews${id}`, {
+    fetch(`https://assignment-11-server-six.vercel.app/reviews/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
