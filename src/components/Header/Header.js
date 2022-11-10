@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 import Banner from "../assets/banner1.png";
-import "./Header.css";
 import { FaHome } from "react-icons/fa";
 import { BsFillPersonFill } from "react-icons/bs";
 import toast from "react-hot-toast";
@@ -19,7 +18,7 @@ const Header = () => {
   };
 
   return (
-    <div className="sticky top-0 navbar dark:bg-violet-900/70 px-8">
+    <div className="navbar dark:bg-violet-900/70 px-8">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -49,10 +48,10 @@ const Header = () => {
               <Link to="/services">Services</Link>
             </li>
             <li>
-              <Link to="/">Documentary</Link>
+              <Link to="/gallery">Documentary</Link>
             </li>
             <li>
-              <Link to="/">Blog</Link>
+              <Link to="/blog">Blog</Link>
             </li>
             <li>
               <a href="/">Contact</a>
@@ -74,10 +73,10 @@ const Header = () => {
             <Link to="/services">Services</Link>
           </li>
           <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
-            <Link to="/">Documentary</Link>
+            <Link to="/gallery">Documentary</Link>
           </li>
           <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
-            <Link to="/">Blog</Link>
+            <Link to="/blog">Blog</Link>
           </li>
           <li className="hover:underline underline-offset-8 hover:text-black font-semibold">
             <a href="/">Contact</a>
