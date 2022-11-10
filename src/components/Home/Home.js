@@ -13,7 +13,6 @@ import "react-photo-view/dist/react-photo-view.css";
 const Home = () => {
   useTitle("Home");
   const services = useLoaderData();
-  // console.log(services);
 
   return (
     <div>
@@ -48,7 +47,7 @@ const Home = () => {
                       <p>$ {service.est_price}</p>
                       <p className="flex">
                         <BsStarFill className="text-lg pt-1" /> &nbsp;
-                        {" " + service.ratings}
+                        {service?.ratings !== undefined ? service.ratings : "0"}
                       </p>
                     </div>
                   </div>

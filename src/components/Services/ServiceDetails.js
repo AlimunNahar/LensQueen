@@ -6,19 +6,21 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import useTitle from "../Hooks/useTitle";
 import MyReviews from "../Reviews/MyReviews";
+import NewReviews from "../Reviews/NewReviews";
 
 const ServiceDetails = () => {
   useTitle("Details");
   const [myReviews, setMyReviews] = useState([]);
   const { user } = useContext(AuthContext);
   const details = useLoaderData();
-  // console.log(details);
+  console.log(details);
 
   useEffect(() => {
-    fetch("https://assignment-11-server-six.vercel.app/")
+    fetch("https://assignment-11-server-six.vercel.app/reviews")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        setMyReviews(data);
+        // console.log(data);
       });
   }, []);
 
@@ -43,13 +45,31 @@ const ServiceDetails = () => {
             </div>
           </div>
         </div>
-        <div className="mx-20 my-12 text-justify">{details.description}</div>
+        <div className="mx-5 lg:mx-20 my-12 text-justify">
+          {details.description}
+        </div>
       </div>
       <hr className="mx-5" />
       <div className="bg-black pb-8">
         <h2 className="py-8 text-3xl font-bold text-center">Reviews</h2>
-        {details?.reviews.map((review) => (
-          <div>
+        <div className="bg-violet-500/50 mx-auto">
+          {user?.email || details.reviews ? (
+            <div className="text-center">
+              <NewReviews myReviews={myReviews} />
+            </div>
+          ) : (
+            <div className="text-center">
+              <h2 className="pt-5 text-3xl font-bold">Add Your Own Comment!</h2>
+              <Link to="/login">
+                <button className="btn btn-ghost border-black border-2 p-5 pb-8 my-8">
+                  Login Now
+                </button>
+              </Link>
+            </div>
+          )}
+        </div>
+        {details?.reviews?.map((review, idx) => (
+          <div key={idx}>
             <div className="container flex flex-col w-10/12 mb-2 p-6 mx-auto divide-y rounded-md divide-gray-700 dark:dark:bg-gray-900 dark:dark:text-gray-100">
               <div className="flex justify-between p-4">
                 <div className="flex space-x-4">
@@ -77,6 +97,7 @@ const ServiceDetails = () => {
           </div>
         ))}
       </div>
+
       <div className="bg-violet-500/50 mx-auto">
         {user?.email ? (
           <div className="text-center">

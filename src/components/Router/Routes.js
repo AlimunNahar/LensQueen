@@ -8,10 +8,10 @@ import Blog from "../Blog/Blog";
 import Services from "../Services/Services";
 import Documentary from "../Documentary/Documentary";
 import ServiceDetails from "../Services/ServiceDetails";
-import MyReviews from "../Reviews/MyReviews";
 import AddService from "../Reviews/AddService";
 import PrivateRoute from "./PrivateRoute";
 import AddedReview from "../Reviews/AddedReview";
+import NewReviews from "../Reviews/NewReviews";
 
 export const routes = createBrowserRouter([
   {
@@ -31,7 +31,19 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/services/:id",
-        element: <ServiceDetails />,
+        element: (
+          <PrivateRoute>
+            <ServiceDetails />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://assignment-11-server-six.vercel.app/services/${params.id}`
+          ),
+      },
+      {
+        path: "/services/:id",
+        element: <NewReviews />,
         loader: ({ params }) =>
           fetch(
             `https://assignment-11-server-six.vercel.app/services/${params.id}`
