@@ -9,7 +9,7 @@ import useTitle from "../Hooks/useTitle";
 const AddedReview = () => {
   const { user } = useContext(AuthContext);
   useTitle("MyReviews");
-  const [allReviews, setAllReviews] = useState([]);
+  const [review, setAllReviews] = useState([]);
 
   useEffect(() => {
     fetch("https://assignment-11-server-six.vercel.app/reviews")
@@ -20,21 +20,22 @@ const AddedReview = () => {
       });
   }, []);
 
-  const userReviews = allReviews.filter((f) => f.email === user.email);
+  const userReviews = review.filter((f) => f.email === user.email);
   // console.log(userReviews);
   const handleDelete = (id) => {
     const proceed = window.confirm(
       "Are you sure you want to delete this comment?"
     );
+    console.log(id);
     if (proceed) {
-      fetch(`https://assignment-11-server-six.vercel.app/${id}`, {
+      fetch(`https://assignment-11-server-six.vercel.app/reviews/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {
             alert("Deleted Successfully!");
-            const remaining = allReviews.filter((rev) => rev._id !== id);
+            const remaining = review.filter((rev) => rev._id !== id);
             setAllReviews(remaining);
           }
         });
@@ -53,8 +54,8 @@ const AddedReview = () => {
       .then((data) => {
         console.log(data);
         if (data.modifiedCount > 0) {
-          const remaining = allReviews.filter((rev) => rev._id !== id);
-          const approving = allReviews.find((rev) => rev._id === id);
+          const remaining = review.filter((rev) => rev._id !== id);
+          const approving = review.find((rev) => rev._id === id);
 
           approving.status = "Approved";
 
@@ -88,7 +89,7 @@ const AddedReview = () => {
               <tr key={idx}>
                 <th>
                   <button
-                    onClick={() => handleStatusUpdate(allReviews._id)}
+                    onClick={() => handleStatusUpdate(review._id)}
                     className="btn btn-ghost text-xl"
                   >
                     <AiFillEdit />
@@ -113,7 +114,7 @@ const AddedReview = () => {
 
                 <th>
                   <button
-                    onClick={() => handleDelete(allReviews._id)}
+                    onClick={() => handleDelete(review._id)}
                     className="btn btn-ghost btn-lg"
                   >
                     <RiDeleteBin5Line />
