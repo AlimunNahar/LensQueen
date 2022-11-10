@@ -51,7 +51,7 @@ const ServiceDetails = () => {
       </div>
       <hr className="mx-5" />
       <div className="bg-black pb-8">
-        <h2 className="py-8 text-3xl font-bold text-center">Reviews</h2>
+        <h2 className="py-8 text-3xl font-bold text-center">All Reviews</h2>
         <div className="bg-violet-500/50 mx-auto">
           {user?.email || details.reviews ? (
             <div className="text-center">
